@@ -6,6 +6,15 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <!-- SearchFragment -->
+    <string name="search_title_string">書籍検索方法</string>
+    <string name="search_book_id_string">書籍idによる検索</string>
+    <string name="search_book_id">書籍idを入力</string>
+    <string name="search_book_title_string">書籍タイトルによる検索</string>
+    <string name="search_book_title">書籍タイトルを入力</string>
+    <string name="search_string">検索</string>
+    <!-- -->
+
     <!-- -->
     <!-- -->
 </resources>

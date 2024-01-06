@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.konan.properties.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -15,6 +17,12 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        val properties = Properties().apply {
+            load(project.rootProject.file("local.properties").inputStream())
+        }
+
+        buildConfigField("String", "API_KEY", "\"${properties["API_KEY"]}\"")
     }
 
     buildTypes {
@@ -36,10 +44,15 @@ android {
     buildFeatures {
         viewBinding = true
     }
+
+    buildFeatures {
+        buildConfig = true
+    }
 }
 
 dependencies {
 
+    implementation("com.google.ai.client.generativeai:generativeai:0.1.1")
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")

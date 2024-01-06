@@ -18,7 +18,7 @@ class HomeFragment : Fragment() {
     private lateinit var viewPager2: ViewPager2
     private lateinit var tabLayout: TabLayout
 
-    private val tabTitles = listOf("書籍検索", "検索履歴")
+    private val tabTitles = listOf("書籍検索", "書籍登録", "検索履歴")
 
     override fun onCreateView(
         inflater: LayoutInflater,
