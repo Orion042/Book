@@ -7,11 +7,18 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.viewpager2.widget.ViewPager2
 import com.example.book.R
+import com.example.book.TabAdapter
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 
 class HomeFragment : Fragment() {
 
-    private lateinit var _textView: TextView
+    private lateinit var viewPager2: ViewPager2
+    private lateinit var tabLayout: TabLayout
+
+    private val tabTitles = listOf("書籍検索", "検索履歴")
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,8 +31,14 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        _textView = view.findViewById(R.id.text_home)
+        viewPager2 = view.findViewById(R.id.pager)
+        tabLayout = view.findViewById(R.id.tab_layout)
 
-        _textView.text = "hello home"
+        val adapter = TabAdapter(this)
+        viewPager2.adapter = adapter
+
+        TabLayoutMediator(tabLayout, viewPager2) { tab, position ->
+            tab.text = tabTitles[position]
+        }.attach()
     }
 }
