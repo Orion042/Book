@@ -2,6 +2,7 @@ package com.example.book.ui.home
 
 import android.app.Activity
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.RadioButton
+import android.widget.RadioGroup
+import android.widget.TextView
 import android.widget.Toast
 import com.example.book.R
 
@@ -20,10 +23,15 @@ class SearchFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private lateinit var radioGroup : RadioGroup
     private lateinit var radioButtonBookId : RadioButton
     private lateinit var radioButtonBookTitle : RadioButton
     private lateinit var editText : EditText
     private lateinit var searchButton : Button
+    private lateinit var bookAPIResultTextView : TextView
+
+    private val hostIp = "172.xxx.x"
+    private lateinit var searchOption : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,13 +52,18 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        radioGroup = view.findViewById(R.id.radioGroup)
         radioButtonBookId = view.findViewById(R.id.radioButtonBookId)
         radioButtonBookTitle = view.findViewById(R.id.radioButtonBookTitle)
         editText = view.findViewById(R.id.editTextText)
         searchButton = view.findViewById(R.id.searchButton)
+        bookAPIResultTextView = view.findViewById(R.id.bookAPIResultTextView)
+
+        bookAPIResultTextView.movementMethod = ScrollingMovementMethod()
 
         radioButtonBookId.isChecked = true
         editText.setHint(resources.getString(R.string.search_book_id))
+        searchOption = "id"
 
         radioButtonBookId.setOnClickListener {
             onRadioButtonClicked(R.id.radioButtonBookId)
@@ -60,16 +73,38 @@ class SearchFragment : Fragment() {
             onRadioButtonClicked(R.id.radioButtonBookTitle)
         }
 
+        searchButton.setOnClickListener {
+            if(editText.text.toString().trim().isEmpty()) {
+                Toast.makeText(requireContext(), "左の欄に入力してください", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                val selectedRadioButtonId = radioGroup.checkedRadioButtonId
+
+                when(selectedRadioButtonId) {
+                    R.id.radioButtonBookId -> {
+                        searchOption = "id"
+                    }
+
+                    R.id.radioButtonBookTitle -> {
+                        searchOption = "title"
+                    }
+                }
+
+                getRequest(searchOption)
+            }
+        }
+    }
+
+    fun getRequest(option : String) {
+        
     }
 
     fun onRadioButtonClicked(selectedId : Int) {
         when(selectedId) {
             R.id.radioButtonBookId -> {
-                Toast.makeText(requireContext(), "id", Toast.LENGTH_SHORT).show()
                 editText.setHint(resources.getString(R.string.search_book_id))
             }
             R.id.radioButtonBookTitle -> {
-                Toast.makeText(requireContext(), "title", Toast.LENGTH_SHORT).show()
                 editText.setHint(resources.getString(R.string.search_book_title))
             }
         }

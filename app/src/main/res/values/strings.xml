@@ -13,6 +13,7 @@
     <string name="search_book_title_string">書籍タイトルによる検索</string>
     <string name="search_book_title">書籍タイトルを入力</string>
     <string name="search_string">検索</string>
+    <string name="search_result_string">検索結果</string>
     <!-- -->
 
     <!-- -->
