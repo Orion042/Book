@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SimpleAdapter
 import com.example.book.R
 import com.example.book.database.BookEntity
 import com.example.book.databinding.FragmentHistoryBinding
@@ -53,7 +54,18 @@ class HistoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val data = listOf(
+            mapOf("title" to "Book 1", "author" to "Author 1", "date" to "2023-08-01"),
+            mapOf("title" to "Book 2", "author" to "Author 2", "date" to "2023-08-02")
+        )
 
+        binding.bookSearchHistoryList.adapter = SimpleAdapter(
+            requireContext(),
+            data,
+            R.layout.books_search_history_list,
+            arrayOf("title", "author", "date"),
+            intArrayOf(R.id.book_title_textview, R.id.book_author_textview, R.id.book_search_time_textview)
+        )
     }
 
     companion object {

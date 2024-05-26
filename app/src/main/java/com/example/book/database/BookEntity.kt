@@ -9,5 +9,5 @@ data class BookEntity(
     @PrimaryKey(autoGenerate = true) val id: Long,
     @ColumnInfo(name = "title") val title: String,
     @ColumnInfo(name = "author") val author: String,
-    @ColumnInfo(name = "create_at") val createAt: Long
+    @ColumnInfo(name = "create_at") val createAt: String
 )

@@ -15,6 +15,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var navView: BottomNavigationView
 
+    val ipAddress = "192.168.0.13"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

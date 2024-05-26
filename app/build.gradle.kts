@@ -67,6 +67,10 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+
+    implementation("com.google.code.gson:gson:2.11.0")
+
     val room_version = "2.6.1"
 
     implementation("androidx.room:room-runtime:$room_version")
@@ -93,4 +97,7 @@ dependencies {
     // optional - Paging 3 Integration
     implementation("androidx.room:room-paging:$room_version")
 
+    val okhttp_version = "4.12.0"
+    implementation("com.squareup.okhttp3:okhttp:$okhttp_version")
+    implementation("com.squareup.okhttp3:logging-interceptor:$okhttp_version")
 }
