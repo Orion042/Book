@@ -16,6 +16,13 @@
     <string name="search_result_string">検索結果</string>
     <!-- -->
 
+    <!-- RegisterFragment -->
+    <string name="register_id_string">書籍IDを入力</string>
+    <string name="register_title_string">書籍タイトルを入力</string>
+    <string name="register_author_string">書籍著者を入力</string>
+    <string name="register_book_button_string">送信</string>
+    <!-- -->
+
     <!-- -->
     <!-- -->
 </resources>

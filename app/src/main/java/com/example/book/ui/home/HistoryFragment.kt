@@ -69,9 +69,9 @@ class HistoryFragment : Fragment() {
             withContext(Dispatchers.Main) {
                 val searchDataList = books.map { book ->
                     mapOf(
-                        "title" to book.title,
-                        "author" to book.author,
-                        "createAt" to convertDate(book.createAt)
+                        "title" to "タイトル: " + book.title,
+                        "author" to "著者: " + book.author,
+                        "createAt" to "検索日: " + convertDate(book.createAt)
                     )
                 }
 
