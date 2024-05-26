@@ -14,6 +14,10 @@ import com.example.book.repository.BookRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -54,18 +58,44 @@ class HistoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val data = listOf(
-            mapOf("title" to "Book 1", "author" to "Author 1", "date" to "2023-08-01"),
-            mapOf("title" to "Book 2", "author" to "Author 2", "date" to "2023-08-02")
-        )
+        showSearchHistory()
+    }
 
-        binding.bookSearchHistoryList.adapter = SimpleAdapter(
-            requireContext(),
-            data,
-            R.layout.books_search_history_list,
-            arrayOf("title", "author", "date"),
-            intArrayOf(R.id.book_title_textview, R.id.book_author_textview, R.id.book_search_time_textview)
-        )
+    private fun showSearchHistory() {
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val books = bookRepository.getAllBooks()
+
+            withContext(Dispatchers.Main) {
+                val searchDataList = books.map { book ->
+                    mapOf(
+                        "title" to book.title,
+                        "author" to book.author,
+                        "createAt" to convertDate(book.createAt)
+                    )
+                }
+
+                binding.bookSearchHistoryList.adapter = SimpleAdapter(
+                    requireContext(),
+                    searchDataList,
+                    R.layout.books_search_history_list,
+                    arrayOf("title", "author", "createAt"),
+                    intArrayOf(R.id.book_title_textview, R.id.book_author_textview, R.id.book_search_time_textview)
+                )
+            }
+        }
+    }
+
+    private fun convertDate(dateString: String) : String {
+        val inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SS'Z'")
+
+        val outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+
+        val dateTime = LocalDateTime.parse(dateString, inputFormatter)
+
+        val formattedTimeString = dateTime.format(outputFormatter)
+
+        return formattedTimeString
     }
 
     companion object {
