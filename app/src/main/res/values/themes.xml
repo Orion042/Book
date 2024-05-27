@@ -13,4 +13,8 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="account_edit_button_style" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="strokeColor">@color/medium_purple</item>
+    </style>
 </resources>

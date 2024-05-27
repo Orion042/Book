@@ -23,6 +23,11 @@
     <string name="register_book_button_string">送信</string>
     <!-- -->
 
+    <!-- AccountFragment -->
+    <string name="account_edit_string">編集</string>
+    <string name="account_edit_cancel_string">キャンセル</string>
+    <!-- -->
+
     <!-- -->
     <!-- -->
 </resources>

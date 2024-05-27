@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -18,11 +19,14 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.book.R
 import com.example.book.databinding.FragmentAccountBinding
 import com.example.book.databinding.FragmentRegisterBinding
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 class AccountFragment : Fragment() {
 
     private var _binding: FragmentAccountBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var bottomSheet: BottomSheetBehavior<LinearLayout>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,6 +50,8 @@ class AccountFragment : Fragment() {
 
         val savedImageUriString = sharedPreferences.getString("userIconImageUri", null)
 
+        bottomSheet = BottomSheetBehavior.from(binding.bottomSheetLayout)
+
         if(savedImageUriString == null) {
             binding.userIconImageview.setImageResource(R.drawable.sample_user_image)
         }
@@ -53,6 +59,19 @@ class AccountFragment : Fragment() {
             savedImageUriString?.let {
                 val savedImageUri = Uri.parse(it)
                 loadImageUri(savedImageUri)
+            }
+        }
+
+        binding.userEditButton.setOnClickListener {
+            when(it.id) {
+                R.id.user_edit_button -> {
+                    if(bottomSheet.state != BottomSheetBehavior.STATE_EXPANDED) {
+                        bottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
+                    }
+                    else {
+                        bottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
+                    }
+                }
             }
         }
 
