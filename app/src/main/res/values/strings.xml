@@ -26,6 +26,8 @@
     <!-- AccountFragment -->
     <string name="account_edit_string">編集</string>
     <string name="account_edit_cancel_string">キャンセル</string>
+    <string name="account_save_string">保存</string>
+    <string name="account_edit_user_name_string">名前</string>
     <!-- -->
 
     <!-- -->
