@@ -15,12 +15,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.book.R
@@ -123,6 +125,16 @@ class AccountFragment : Fragment() {
                 updateSavedButton(true)
             }
         })
+
+
+        bottomSheet.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+            }
+
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                hideKeyboard()
+            }
+        })
     }
 
     private fun changeIconImage() {
@@ -145,7 +157,6 @@ class AccountFragment : Fragment() {
 
             }else{
                 Toast.makeText(activity, "エラーが発生しました", Toast.LENGTH_LONG).show()
-
             }
         }
 
@@ -242,5 +253,10 @@ class AccountFragment : Fragment() {
             binding.accountSaveTextview.visibility = View.INVISIBLE
             binding.accountSaveTextview.isClickable = false
         }
+    }
+
+    private fun hideKeyboard(){
+        val inputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(binding.bottomSheetLayout.windowToken,InputMethodManager.HIDE_NOT_ALWAYS)
     }
 }
