@@ -69,7 +69,7 @@
         <LinearLayout
             android:id="@+id/bottom_sheet_layout"
             android:layout_width="match_parent"
-            android:layout_height="790dp"
+            android:layout_height="match_parent"
             android:background="@color/lavender"
             app:behavior_peekHeight="0dp"
             app:behavior_hideable="true"
@@ -143,7 +143,6 @@
                     android:hint="@string/account_edit_user_name_string"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
-
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

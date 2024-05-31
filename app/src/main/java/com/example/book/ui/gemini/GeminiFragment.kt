@@ -8,24 +8,33 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.book.R
+import com.example.book.databinding.FragmentAccountBinding
+import com.example.book.databinding.FragmentGeminiBinding
 
 class GeminiFragment : Fragment() {
 
-    private lateinit var _textView: TextView
+    private var _binding: FragmentGeminiBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_gemini, container, false)
+        _binding = FragmentGeminiBinding.inflate(inflater, container, false)
+
+        return binding.root
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        _textView = view.findViewById(R.id.text_gemini)
-
-        _textView.text = "hello gemini"
+        // https://sendbird.com/developer/tutorials/android-chat-tutorial-building-a-messaging-ui
+        
     }
 }

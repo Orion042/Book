@@ -2,6 +2,7 @@ package com.example.book.ui.account
 
 import android.app.Activity
 import android.content.Context
+import android.content.Context.WINDOW_SERVICE
 import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
@@ -15,6 +16,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowInsets
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
@@ -69,6 +72,8 @@ class AccountFragment : Fragment() {
         loadUserName(sharedPreferences, binding.userNameTextview)
 
         bottomSheet = BottomSheetBehavior.from(binding.bottomSheetLayout)
+
+        setBottomSheetHeight()
 
         binding.userEditButton.setOnClickListener {
             when(it.id) {
@@ -135,6 +140,18 @@ class AccountFragment : Fragment() {
                 hideKeyboard()
             }
         })
+    }
+
+    private fun setBottomSheetHeight() {
+        val windowManager = getSystemService(this.requireContext(), WindowManager::class.java) as WindowManager
+        val bounds = windowManager.currentWindowMetrics.bounds
+        val insets = windowManager.currentWindowMetrics.windowInsets
+            .getInsetsIgnoringVisibility(WindowInsets.Type.systemBars())
+        val dp = resources.displayMetrics.density
+
+        val screenHeight = (bounds.height() - insets.top - insets.bottom)/dp
+
+        binding.bottomSheetLayout.layoutParams.height = (screenHeight * 2.4).toInt()
     }
 
     private fun changeIconImage() {
