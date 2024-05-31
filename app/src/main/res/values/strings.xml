@@ -30,6 +30,11 @@
     <string name="account_edit_user_name_string">名前</string>
     <!-- -->
 
+    <!-- GeminiFragment  -->
+    <string name="gemini_chat_send_string">送信</string>
+    <string name="gemini_chat_message_hint_string">メッセージを入力</string>
+    <!-- -->
+
     <!-- -->
     <!-- -->
 </resources>

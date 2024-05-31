@@ -1,4 +1,4 @@
-package com.example.book
+package com.example.book.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
