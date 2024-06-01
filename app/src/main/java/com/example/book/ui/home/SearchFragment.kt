@@ -1,6 +1,7 @@
 package com.example.book.ui.home
 
 import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -8,14 +9,17 @@ import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.book.BookDataClass
 import com.example.book.MainActivity
 import com.example.book.R
@@ -48,6 +52,7 @@ class SearchFragment : Fragment() {
     private lateinit var editText : EditText
     private lateinit var searchButton : Button
     private lateinit var bookAPIResultTextView : TextView
+    private lateinit var parentLayout: ConstraintLayout
 
     private lateinit var searchOption : String
 
@@ -82,6 +87,7 @@ class SearchFragment : Fragment() {
         editText = view.findViewById(R.id.editTextText)
         searchButton = view.findViewById(R.id.searchButton)
         bookAPIResultTextView = view.findViewById(R.id.bookAPIResultTextView)
+        parentLayout = view.findViewById(R.id.search_parent_layout)
 
         bookAPIResultTextView.movementMethod = ScrollingMovementMethod()
 
@@ -102,6 +108,8 @@ class SearchFragment : Fragment() {
                 Toast.makeText(requireContext(), "左の欄に入力してください", Toast.LENGTH_SHORT).show()
             }
             else {
+                hideKeyboard()
+
                 val selectedRadioButtonId = radioGroup.checkedRadioButtonId
 
                 when(selectedRadioButtonId) {
@@ -116,6 +124,13 @@ class SearchFragment : Fragment() {
 
                 getRequest(searchOption)
             }
+        }
+
+        parentLayout.setOnTouchListener { v, event ->
+            if (event.action == MotionEvent.ACTION_DOWN) {
+                hideKeyboard()
+            }
+            false
         }
     }
 
@@ -161,6 +176,11 @@ class SearchFragment : Fragment() {
                 editText.setHint(resources.getString(R.string.search_book_title))
             }
         }
+    }
+
+    private fun hideKeyboard(){
+        val inputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(parentLayout.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
     }
 
     companion object {

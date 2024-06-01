@@ -1,5 +1,6 @@
 package com.example.book.ui.home
 
+import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -7,8 +8,10 @@ import android.text.TextUtils
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import com.example.book.MainActivity
 import com.example.book.R
@@ -78,6 +81,8 @@ class RegisterFragment : Fragment() {
                 else {
                     Log.d(TAG, "Response: $responseData")
 
+                    hideKeyboard()
+
                     handler.post {
                         Toast.makeText(activity, "送信成功", Toast.LENGTH_SHORT).show()
                     }
@@ -85,6 +90,12 @@ class RegisterFragment : Fragment() {
                     clearEditText()
                 }
             }
+        }
+        binding.registerFragmentLayout.setOnTouchListener { v, event ->
+            if (event.action == MotionEvent.ACTION_DOWN) {
+                hideKeyboard()
+            }
+            false
         }
     }
 
@@ -103,6 +114,11 @@ class RegisterFragment : Fragment() {
             return true
         }
         return false
+    }
+
+    private fun hideKeyboard(){
+        val inputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(binding.registerFragmentLayout.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
     }
 
     companion object {
