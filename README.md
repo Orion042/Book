@@ -2,7 +2,7 @@
 
 ## Gemini-ProのAPIキー設定
 
-local.properties
+local.propertiesにAPIキーを追加
 ```
 API_KEY = XXXX
 ```
