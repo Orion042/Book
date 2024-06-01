@@ -71,26 +71,24 @@ class AccountFragment : Fragment() {
 
         loadUserName(sharedPreferences, binding.userNameTextview)
 
+        loadImage(sharedPreferences, binding.userEditIconImageview)
+
+        loadUserName(sharedPreferences, binding.editUserNameEdittext)
+
         bottomSheet = BottomSheetBehavior.from(binding.bottomSheetLayout)
 
         setBottomSheetHeight()
 
         binding.userEditButton.setOnClickListener {
-            when(it.id) {
-                R.id.user_edit_button -> {
-                    if(bottomSheet.state != BottomSheetBehavior.STATE_EXPANDED) {
-                        loadImage(sharedPreferences, binding.userEditIconImageview)
-                        loadUserName(sharedPreferences, binding.editUserNameEdittext)
+            if(bottomSheet.state != BottomSheetBehavior.STATE_EXPANDED) {
 
-                        updateSavedButton(false)
+                updateSavedButton(false)
 
-                        bottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
-                    }
-                    else {
+                bottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
+            }
+            else {
 
-                        bottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
-                    }
-                }
+                bottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
             }
         }
 
@@ -126,7 +124,7 @@ class AccountFragment : Fragment() {
             }
 
             override fun afterTextChanged(s: Editable?) {
-                isNameChanged
+                isNameChanged = true
                 updateSavedButton(true)
             }
         })
